@@ -1,13 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const PORT = 3000;
 
+app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
+
+const PORT = 3001;
 
 app.get('/', (req, res) => {
     res.status(200)
        .send('Welcome to my Nelson API by Lunga Malinga');
+});
+
+app.post('/', (req, res) => {
+    res.status(200)
+       .send('Please use the /data endpoint to send data.');
 });
 
 app.get('/data', (req, res) => {
@@ -26,7 +35,7 @@ app.post('/data', (req, res) => {
 
     // !return sorted array
     const response_array = generate_response(data.data)
-    
+    console.log('pinged');
     return res.status(200)
         .send(response_array);
 })
