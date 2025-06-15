@@ -8,11 +8,11 @@ const path = require('path');
 const cors = require('cors');
 const app = express();
 
- // -- logs
- const LOG_DATA = fs.createWriteStream(path.join(__dirname, 'logs.log'), { flags: 'a' });
- morgan.format('myFormat', ':method :url :status :response-time ms');
- app.use(morgan('combined', { stream: LOG_DATA }));
- app.use(morgan('combined')); // print the log
+ // -- for logging 
+//  const LOG_DATA = fs.createWriteStream(path.join(__dirname, 'logs.log'), { flags: 'a' });
+//  morgan.format('myFormat', ':method :url :status :response-time ms');
+//  app.use(morgan('combined', { stream: LOG_DATA }));
+//  app.use(morgan('combined')); // print the log
 //-- logs
 
 app.use(cors());
