@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+// app.options('*', cors()); // Enable pre-flight requests for all routes
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -21,7 +22,7 @@ app.post('/', (req, res) => {
 
 app.get('/data', (req, res) => {
     res.status(200)
-       .send('This is a gest request. Please use a POST request to send data.');
+       .send('This is a /GET request. Please use a /POST request, with a valid body to send data');
 })
 
 app.post('/data', (req, res) => {
