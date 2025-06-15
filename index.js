@@ -1,10 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const morgan = require('morgan'); // test logs 🤪
+const fs = require('fs');
+const path = require('path');
+
 const cors = require('cors');
 const app = express();
 
+ // -- logs
+ const LOG_DATA = fs.createWriteStream(path.join(__dirname, 'logs.log'), { flags: 'a' });
+ morgan.format('myFormat', ':method :url :status :response-time ms');
+ app.use(morgan('combined', { stream: LOG_DATA }));
+ app.use(morgan('combined')); // print the log
+//-- logs
+
 app.use(cors());
-// app.options('*', cors()); // Enable pre-flight requests for all routes
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -36,7 +47,6 @@ app.post('/data', (req, res) => {
 
     // !return sorted array
     const response_array = generate_response(data.data)
-    console.log('pinged');
     return res.status(200)
         .send(response_array);
 })
@@ -48,6 +58,6 @@ app.listen(PORT, () => {
 // ! response handler
 function generate_response(data){
     return {
-        word: data.split('').sort()
+        word: data.toLowerCase().split('').sort()
     };
 }
